@@ -88,7 +88,7 @@ export function HeiterkeitModal({
         </PMList>
       </PMSection>
       <PMSection heading='リンク'>
-        <a href='https://heiterkeit.jp' target='_blank'>Heiteerkeit</a>
+        <a href='https://cocolab.jp/' target='_blank' className='text-mga-blue border-b border-mga-blue px-1'>Heiterkeit</a>
       </PMSection>
    </ProductModal>     
   )
@@ -196,15 +196,24 @@ export function SleemuuModal({
       <PMSection heading='プロダクト概要'>
         <PMParagraph>
           チームみんなで「良い睡眠」を取ることでペットを育てる、協力型睡眠改善アプリです。
-          iOSアプリに加え、管理者用のWebアプリも制作しました。
-          チームメンバーを管理し、睡眠レポートを作成する機能を学校・企業に提供することで、団体での睡眠改善も図ります。
+          iOSアプリに加えて管理者用のWebアプリも提供しており、チームメンバーの管理や睡眠レポート作成機能を有しています。
+          教育機関がこれらの機能を活用することで、団体での睡眠改善を図ります。
         </PMParagraph>
       </PMSection>
       <PMSection heading='使用技術'>
         <PMList>
           <li>React Native</li>
+          <li>Expo</li>
           <li>React</li>
+          <li>Hono</li>
         </PMList>
+      </PMSection>
+      <PMSection heading='アプリPR'>
+        <img
+          src={shMethodImg}
+          alt='Sleemuu PR'
+          className='w-full border border-gray-400 rounded-lg mx-auto mb-8'
+        />
       </PMSection>
    </ProductModal>     
   )

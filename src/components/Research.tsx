@@ -23,9 +23,7 @@ export default function Research({
     blue:   'text-mga-blue',
     purple: 'text-mga-purple',
     green:  'text-mga-green',
-  };
-
-  
+  };  
 
   return (
     <div className='border border-gray-300 rounded-xl py-4 px-4 md:px-8 space-y-4'>
@@ -39,14 +37,16 @@ export default function Research({
             <div>
               <p className={`text-sm md:text-base font-semibold ${themeColors[color]}`}>{research.title}</p>
               <Author author={research.author} />
-              <p className='text-sm md:text-base'>
+              <p className='text-sm '>
                 <span className='pr-1'>{research.bookTitle},</span>
-                {research.number && <span className='pr-1'>{research.number},</span>}
+                {research.volume && <span className='pr-1'>Vol.{research.volume},</span>}
+                {research.number && <span className='pr-1'>{typeof(research.number) === 'number' && 'No.'}{research.number},</span>}
                 <span className='pr-1'>pp.{research.pages},</span>
                 <span className='pr-1'>{research.location},</span>
                 <span>{getJPDate(research.date)}</span>
               </p>
             </div>
+            {research.award && <div className='w-fit text-xs text-mga-3 font-semibold bg-radial-light rounded-2xl py-0.5 px-2'>{research.award}</div>}
             <div className='flex flex-col gap-2 w-full'>
               <div className='flex gap-2 flex-wrap w-full'>
                 <Accordion groupId='domesticConference'>
@@ -86,7 +86,7 @@ function Author({
   const pattern = new RegExp(`(${bolds.join('|')})`, 'gi');
   const parts = author.split(pattern);
   return (
-    <p className='text-sm md:text-base'>
+    <p className='text-sm'>
       {parts.map((part, i) =>
         bolds.some(b => b === part) ? (
           <strong key={i}>{part}</strong>
@@ -114,7 +114,7 @@ function PublishButton({
 
   return type === 'bibtex' ? (
     <button
-      className={`flex items-center bg-mga-3 text-xs md:text-sm text-white rounded-lg px-1 md:px-2 py-1 transition-color duration-300 hover:bg-mga-1 ${!publish && disabledStyle}`}
+      className={`flex items-center bg-mga-3 text-xs md:text-sm text-white rounded-lg px-1 md:px-2 py-1 transition-color duration-300 hover:bg-mga-1 cursor-pointer ${!publish && disabledStyle}`}
     >
         <FontAwesomeIcon icon={faBookOpen} className='pr-1' />
         {children}
@@ -144,6 +144,7 @@ export function BibTeX({
   if (research.number) bibtex += `\tnumber={${research.number}},\n`;
   bibtex += `\tyear={${research.date.split('-')[0]}},\n`;
   bibtex += `\tpages={${research.pages}}\n`;
+  if (research.url) bibtex += `\turl={${research.url}}\n`;
   bibtex += '}';
 
   return (
