@@ -12,7 +12,7 @@ import Product from './components/product';
 import Research from './components/Research';
 import { certifications } from './contents/certifications';
 import { products } from './contents/products';
-import { domesticConferences } from './contents/research';
+import { domesticConferences, theses } from './contents/research';
 import useModal from './hooks/useModal';
 
 export default function App() {
@@ -128,7 +128,7 @@ export default function App() {
             <div className='space-y-4'>
               {/* <Research title='国際学会' works={internationalConferences} color='purple' /> */}
               <Research title='国内研究会' works={domesticConferences} color='blue' />
-              {/* <Research title='学位論文' works={theses} color='green' /> */}
+              <Research title='学位論文' works={theses} color='green' />
             </div>
           </div>
         </section>

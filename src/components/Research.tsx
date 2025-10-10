@@ -1,6 +1,8 @@
 import type { Research } from '@/contents/research';
+import useModal from '@/hooks/useModal';
 import { faBookOpen, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
 
 export default function Research({
@@ -12,6 +14,8 @@ export default function Research({
   works: Research[]
   color: 'blue' | 'purple' | 'green'
 }) {
+  const [isOpen, openModal, closeModal] = useModal();
+
   const researchNum = works.length;
 
   const getJPDate = (date: string) => {
@@ -42,11 +46,29 @@ export default function Research({
                 {research.volume && <span className='pr-1'>Vol.{research.volume},</span>}
                 {research.number && <span className='pr-1'>{typeof(research.number) === 'number' && 'No.'}{research.number},</span>}
                 <span className='pr-1'>pp.{research.pages},</span>
-                <span className='pr-1'>{research.location},</span>
+                {research.location && <span className='pr-1'>{research.location},</span>}
                 <span>{getJPDate(research.date)}</span>
               </p>
             </div>
-            {research.award && <div className='w-fit text-xs text-mga-3 font-semibold bg-radial-light rounded-2xl py-0.5 px-2'>{research.award}</div>}
+            {research.award && (
+              <div className='flex gap-2 flex-wrap'>
+                {research.award.map(({ name, url, modal: Modal }, i) => {
+                  const className = 'w-fit text-xs text-mga-3 font-semibold bg-radial-light rounded-2xl py-0.5 px-2'
+                  if (url) {
+                    return <a key={i} href={url} target='_blank' className={className}>{name}</a>
+                  } else if (Modal) {
+                    return (
+                      <React.Fragment key={i}>
+                        <button className={`cursor-pointer ${className}`} onClick={() => openModal(research.id)}>{name}</button>
+                        <Modal isOpen={isOpen(research.id)} closeModal={closeModal} />
+                      </React.Fragment>
+                    )
+                  } else {
+                    return <div key={i} className={className}>{name}</div>
+                  }
+                })}
+              </div>
+            )}
             <div className='flex flex-col gap-2 w-full'>
               <div className='flex gap-2 flex-wrap w-full'>
                 <Accordion groupId='domesticConference'>
@@ -80,8 +102,10 @@ export default function Research({
 function Author({
   author
 }: {
-  author: string
+  author: string | undefined
 }) {
+  if (!author) return <></>
+  
   const bolds = ['松田悠斗', 'Yuto Matsuda']
   const pattern = new RegExp(`(${bolds.join('|')})`, 'gi');
   const parts = author.split(pattern);
@@ -137,7 +161,7 @@ export function BibTeX({
   research: Research
 }) {
   let bibtex = `@${research.entry}{bib:${research.id},\n`;
-  bibtex += `\tauthor={${research.author.replaceAll(',', ' and')}},\n`;
+  bibtex += `\tauthor={${research.author ? research.author.replaceAll(',', ' and') : '松田悠斗'}},\n`;
   bibtex += `\ttitle={${research.title}},\n`;
   bibtex += `\tbooktitle={${research.bookTitle}},\n`;
   if (research.volume) bibtex += `\tvolume={${research.volume}},\n`;

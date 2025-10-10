@@ -1,6 +1,6 @@
 import bugImg from '@/assets/buguttoru.jpg';
 import cetImg from '@/assets/certificate-exam-tracer.png';
-import coronaImg from '@/assets/coropita.jpg';
+import coronaImg from '@/assets/coropita.png';
 import hkImg from '@/assets/heiterkeit.png';
 import sleemuuImg from '@/assets/sleemuu.png';
 import sushiImg from '@/assets/sushiking.png';

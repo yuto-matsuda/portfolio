@@ -1,6 +1,8 @@
 // Reference: https://mathlandscape.com/latex-bib/
 // BibTeXがどこからかダウンロードできるなら，それをTS形式に変換する関数をつくるのもあり
 
+import { UBI87Award } from "./researchAwardModals/modals"
+
 export interface Research {
     id: string
     publications: {
@@ -9,17 +11,23 @@ export interface Research {
         poster: boolean
         slide: boolean
     }
-    entry: 'article' | 'inproceedings'
+    entry: 'article' | 'inproceedings' | 'thesis'
     title: string
-    author: string
+    author?: string
     bookTitle: string
-    volume?: string
+    volume?: string | number
     number?: string | number
     pages: string
     url?: string
     date: string
-    location: string
-    award?: string
+    location?: string
+    award?: Award[]
+}
+
+interface Award {
+    name:   string
+    url?:   string
+    modal?: React.ComponentType<any>
 }
 
 export const internationalConferences: Research[] = [
@@ -32,13 +40,13 @@ export const internationalConferences: Research[] = [
             slide: false,
         },
         entry: 'inproceedings',
-        title: 'xxx',
+        title: 'Tactile Paving Detection and Classification Method Based on Cyclist-Participatory Road Image Sensing',
         author: 'Yuto Matsuda, Yuki Matsuda',
         bookTitle: 'xxx',
         number: 'xx',
         pages: '1--x',
         date: '2026-1-xx',
-        location: '',
+        location: 'Nara Kasugano International Forum IRAKA, Nara, Japan.',
     }
 ];
 
@@ -54,9 +62,10 @@ export const domesticConferences: Research[] = [
         entry: 'inproceedings',
         title: '自転車ユーザ参加型路面画像センシングによる点字ブロック配置情報の収集手法の検討',
         author: '松田悠斗, 松田裕貴',
-        bookTitle: '2025年度 情報処理学会関西支部 支部大会',
-        number: 'G-03',
+        bookTitle: '2025年度 情報処理学会関西支部 支部大会 講演論文集',
+        volume: 2025,
         pages: '1--8',
+        url: 'https://ipsj.ixsq.nii.ac.jp/records/2004479',
         date: '2025-9-28',
         location: 'オンライン',
     },
@@ -78,26 +87,32 @@ export const domesticConferences: Research[] = [
         url: 'https://ipsj.ixsq.nii.ac.jp/records/2003948',
         date: '2025-9-18',
         location: '富山県富山市 富山県民会館',
-        award: 'UBIヤングリサーチャー賞',
+        award: [
+            {
+                name: 'UBIヤングリサーチャー賞',
+                url: 'https://sigubi.ipsj.or.jp/excellent/',
+            },
+            {
+                name: 'デモ・ポスターコミュニケーション部門賞',
+                modal: UBI87Award,
+            },
+        ],
     },
 ];
 
 export const theses: Research[] = [
     {
-        id: 'BraiLoop_202509_IPSJ-Kansai',
+        id: 'coropita_202201_okako',
         publications: {
-            bibtex: true,
+            bibtex: false,
             paper: true,
             poster: false,
             slide: true,
         },
-        entry: 'inproceedings',
-        title: '自転車ユーザ参加型路面画像センシングによる点字ブロック配置情報の収集手法の検討',
-        author: '松田悠斗, 松田裕貴',
-        bookTitle: '2025年度 情報処理学会関西支部 支部大会',
-        number: 'G-03',
-        pages: '1--8',
-        date: '2025-9-28',
-        location: 'オンライン',
+        entry: 'thesis',
+        title: 'コロナ予防アプリの制作',
+        bookTitle: '岡山県立岡山工業高等学校 卒業研究発表',
+        pages: '1--4',
+        date: '2022-1-21',
     }
 ];

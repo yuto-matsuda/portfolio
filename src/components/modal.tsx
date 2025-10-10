@@ -3,11 +3,13 @@ import { X } from 'lucide-react';
 export function Modal({
   isOpen,
   bgClose,
+  scrollOff = false,
   className = '',
   children
 }: {
   isOpen: boolean
   bgClose?: () => void | undefined
+  scrollOff?: boolean
   className?: string
   children: React.ReactNode
 }) {
@@ -17,7 +19,7 @@ export function Modal({
       onClick={bgClose}
     >
       <div
-        className={`relative overflow-auto transform transition-all duration-500 ease-[cubic-bezier(0.25,1.25,0.5,1)] ${isOpen ? 'opacity-100 scale-105' : 'opacity-0 scale-90'} ${className}`}
+        className={`relative transform transition-all duration-500 ease-[cubic-bezier(0.25,1.25,0.5,1)] ${scrollOff ? '' : 'overflow-auto'} ${isOpen ? 'opacity-100 scale-105' : 'opacity-0 scale-90'} ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

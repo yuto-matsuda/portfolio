@@ -1,6 +1,6 @@
 import bugImg from '@/assets/buguttoru.jpg';
 import cetImg from '@/assets/certificate-exam-tracer.png';
-import coronaImg from '@/assets/coropita.jpg';
+import coronaImg from '@/assets/coropita.png';
 import hkImg from '@/assets/heiterkeit.png';
 import sleemuuImg from '@/assets/sleemuu.png';
 import sushiVideo from '@/assets/sushi-king.mp4';
@@ -21,6 +21,7 @@ export function CoropitaModal({
       <PMSection heading='プロダクト概要'>
         <PMParagraph>
           当時蔓延していたコロナの予防を促進することを目的としたWebアプリです。
+          ゲーミフィケーションにより日々の体調管理を促します。
           高3の卒業研究で制作しました。
         </PMParagraph>
       </PMSection>
@@ -29,9 +30,6 @@ export function CoropitaModal({
           <li>Ruby on Rails</li>
           <li>jQuery</li>
         </PMList>
-      </PMSection>
-      <PMSection heading='機能'>
-        <PMParagraph>機能</PMParagraph>
       </PMSection>
    </ProductModal>     
   )
@@ -78,7 +76,7 @@ export function HeiterkeitModal({
       <PMSection heading='プロダクト概要'>
         <PMParagraph>
           プログラミングや語学について発信する自作ブログです。
-          フロントに加えCMSも制作し，独自のマークダウンで様々なReactコンポーネントを使用可能にしました。
+          フロントに加えてCMSも制作し、独自のマークダウンで様々なReactコンポーネントを使用可能にしました。
         </PMParagraph>
       </PMSection>
       <PMSection heading='使用技術'>
